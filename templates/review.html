@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Review Order{% endblock %}
+{% block content %}
+<section class="section narrow">
+    <div class="review-box">
+        <span class="eyebrow">ORDER DELIVERED</span>
+        <h1>How was your FarmFresh order?</h1>
+        <p class="muted">
+            Tell us about freshness, quality, packing, delivery and whether the
+            product matched the photo.
+        </p>
+
+        {% if existing %}
+            <div class="empty">
+                <h2>Thanks for your review ⭐</h2>
+                <p>{{ existing['comment'] }}</p>
+            </div>
+        {% else %}
+        <form method="post" class="form-grid">
+            <label>Overall Rating
+                <select name="rating">
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Good</option>
+                    <option value="3">3 - Average</option>
+                    <option value="2">2 - Poor</option>
+                    <option value="1">1 - Very poor</option>
+                </select>
+            </label>
+
+            <label>Food / Product Quality
+                <select name="quality">
+                    <option value="5">5 - Very fresh</option>
+                    <option value="4">4 - Fresh</option>
+                    <option value="3">3 - Okay</option>
+                    <option value="2">2 - Not fresh</option>
+                    <option value="1">1 - Poor</option>
+                </select>
+            </label>
+
+            <label>Delivery Rating
+                <select name="delivery_rating">
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Good</option>
+                    <option value="3">3 - Average</option>
+                    <option value="2">2 - Late</option>
+                    <option value="1">1 - Very poor</option>
+                </select>
+            </label>
+
+            <label>Your comments
+                <textarea name="comment"
+                    placeholder="Was it fresh? Was packing good? Any damage? Did the actual product match the photo? Any replacement or expiry/quality issue?"></textarea>
+            </label>
+
+            <button class="btn btn-primary full">Submit Review ⭐</button>
+        </form>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

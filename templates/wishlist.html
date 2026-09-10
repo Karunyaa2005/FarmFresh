@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Wishlist{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="section-heading">
+        <div><span class="eyebrow">SAVED ITEMS</span><h1>My Wishlist ❤️</h1></div>
+    </div>
+
+    {% if products %}
+    <div class="product-grid">
+        {% for p in products %}
+        <article class="product-card">
+            <a class="product-img" href="{{ url_for('product_detail', product_id=p['id']) }}">
+                <img src="{{ p['image_url'] }}" alt="{{ p['name'] }}">
+            </a>
+            <div class="product-body">
+                <span class="tag">{{ p['category'] }}</span>
+                <a class="product-name" href="{{ url_for('product_detail', product_id=p['id']) }}">{{ p['name'] }}</a>
+                <p class="muted">{{ p['farmer'] }}</p>
+
+                <div class="product-bottom">
+                    <strong>₹{{ "%.0f"|format(p['price']) }}</strong>
+                    <a class="add-btn" href="{{ url_for('cart_add', product_id=p['id']) }}">ADD</a>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty">
+        <h2>Your wishlist is empty</h2>
+        <p>Tap ♡ on any product to save it here.</p>
+        <a class="btn btn-primary" href="{{ url_for('shop') }}">Browse Products</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

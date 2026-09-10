@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Track Order #{{ order['id'] }}{% endblock %}
+{% block content %}
+<section class="section">
+    <span class="eyebrow">ORDER TRACKING</span>
+    <h1>Order #{{ order['id'] }}</h1>
+
+    <div class="tracking-layout">
+        <div class="mapbox">
+            <div class="road road-a"></div>
+            <div class="road road-b"></div>
+            <div class="road road-c"></div>
+
+            <div class="map-place home-place">🏠</div>
+            <div class="map-place shop-place">🏪</div>
+            <div class="map-place truck-place">🚚</div>
+
+            <div class="route-line"></div>
+            <div class="truck-note">Delivery truck</div>
+        </div>
+
+        <div class="tracking-info">
+            <span class="status">{{ order['status'] }}</span>
+
+            {% if order['status'] == 'Delivered' %}
+                <h2>Your order has been delivered 🎉</h2>
+            {% else %}
+                <h2>Your order is on the way 🚚</h2>
+            {% endif %}
+
+            <p class="muted">Delivery address</p>
+            <b>{{ order['address'] }}</b>
+
+            <p class="eta">Estimated delivery: <b>{{ order['eta'] }}</b></p>
+
+            <div class="tracking-steps">
+                <div class="done">✓ Order placed</div>
+                <div class="done">✓ Packed by farmer</div>
+                <div class="done">✓ Out for delivery</div>
+                <div class="{% if order['status'] == 'Delivered' %}done{% else %}pending{% endif %}">
+                    {% if order['status'] == 'Delivered' %}
+                        ✓ Delivered
+                    {% else %}
+                        ○ Waiting for delivery
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if order['status'] != 'Delivered' %}
+            <form method="post" action="{{ url_for('mark_delivered', order_id=order['id']) }}">
+                <button class="btn btn-primary full">Mark as Delivered (Demo)</button>
+            </form>
+            {% else %}
+            <a class="btn btn-primary full" href="{{ url_for('review', order_id=order['id']) }}">
+                Rate & Review ⭐
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="panel order-items">
+        <h2>Items in this order</h2>
+        {% for item in items %}
+        <div class="line-row">
+            <span>{{ item['product_name'] }} × {{ item['quantity'] }}</span>
+            <b>₹{{ "%.0f"|format(item['price'] * item['quantity']) }}</b>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

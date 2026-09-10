@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ product['name'] }} - FarmFresh{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="detail-grid">
+        <div class="detail-photo">
+            <img src="{{ product['image_url'] }}" alt="{{ product['name'] }}">
+        </div>
+
+        <div class="detail-copy">
+            <span class="tag">{{ product['category'] }}</span>
+            <h1>{{ product['name'] }}</h1>
+            <div class="detail-rating">★ {{ product['rating'] }} · Seller: {{ product['farmer'] }}</div>
+
+            <h2>₹{{ "%.0f"|format(product['price']) }} <small>/ {{ product['unit'] }}</small></h2>
+
+            <p>
+                Fresh product from a listed farmer. See seller, stock and
+                product image before adding it to your cart.
+            </p>
+
+            <div class="detail-actions">
+                {% if current_user and current_user['role'] == 'customer' %}
+                    <a class="btn btn-primary" href="{{ url_for('cart_add', product_id=product['id']) }}">Add to Cart</a>
+                    <a class="btn btn-light" href="{{ url_for('wishlist_toggle', product_id=product['id']) }}">♡ Wishlist</a>
+                {% else %}
+                    <a class="btn btn-primary" href="{{ url_for('login', role='customer') }}">Login to Buy</a>
+                {% endif %}
+            </div>
+
+            <div class="spec-grid">
+                <div><span>Farmer</span><b>{{ product['farmer'] }}</b></div>
+                <div><span>Stock</span><b>{{ product['stock'] }}</b></div>
+                <div><span>Unit</span><b>{{ product['unit'] }}</b></div>
+                <div><span>Quality</span><b>Fresh</b></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

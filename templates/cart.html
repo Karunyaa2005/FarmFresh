@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Cart{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="section-heading">
+        <div><span class="eyebrow">YOUR BASKET</span><h1>Cart 🛒</h1></div>
+    </div>
+
+    {% if items %}
+    <div class="cart-layout">
+        <div class="cart-list">
+            {% for item in items %}
+            <div class="cart-item">
+                <img src="{{ item['product']['image_url'] }}" alt="">
+                <div class="cart-info">
+                    <h3>{{ item['product']['name'] }}</h3>
+                    <p class="muted">{{ item['product']['farmer'] }}</p>
+                    <b>₹{{ "%.0f"|format(item['product']['price']) }}</b>
+                </div>
+
+                <div class="qty">
+                    <a href="{{ url_for('cart_update', product_id=item['product']['id'], action='minus') }}">−</a>
+                    <span>{{ item['quantity'] }}</span>
+                    <a href="{{ url_for('cart_update', product_id=item['product']['id'], action='plus') }}">+</a>
+                </div>
+
+                <b>₹{{ "%.0f"|format(item['line_total']) }}</b>
+
+                <a class="remove-link" href="{{ url_for('cart_update', product_id=item['product']['id'], action='remove') }}">Remove</a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <aside class="summary">
+            <h2>Order Summary</h2>
+            <div><span>Subtotal</span><b>₹{{ "%.0f"|format(subtotal) }}</b></div>
+            <div><span>Delivery</span><b>₹{{ delivery }}</b></div>
+            <hr>
+            <div class="grand"><span>Total</span><b>₹{{ "%.0f"|format(total) }}</b></div>
+            <a class="btn btn-primary full" href="{{ url_for('checkout') }}">Proceed to Checkout</a>
+        </aside>
+    </div>
+    {% else %}
+    <div class="empty">
+        <h2>Your cart is empty</h2>
+        <a class="btn btn-primary" href="{{ url_for('shop') }}">Start Shopping</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

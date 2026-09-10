@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ role|title }} Login{% endblock %}
+{% block content %}
+<section class="auth-page">
+    <div class="auth-card">
+        <div class="role-icon big">
+            {{ {'customer':'🛒','seller':'👩‍🌾','owner':'👑'}[role] }}
+        </div>
+
+        <span class="eyebrow">{{ role|upper }} LOGIN</span>
+        <h1>{{ role|title }} Login</h1>
+
+        {% if role == 'owner' %}
+        <div class="demo-box">
+            <b>Demo Owner</b><br>
+            ID: owner@farmfresh.com<br>
+            Password: owner123
+        </div>
+        {% endif %}
+
+        <form method="post" class="form-grid">
+            <label>Main ID / Username
+                <input name="username" required>
+            </label>
+
+            <label>Password
+                <input type="password" name="password" required>
+            </label>
+
+            <button class="btn btn-primary full">Login</button>
+        </form>
+
+        {% if role in ['customer','seller'] %}
+        <p class="switch">New here?
+            <a href="{{ url_for('register', role=role) }}">Create account</a>
+        </p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

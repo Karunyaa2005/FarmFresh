@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+<section class="section narrow">
+    <span class="eyebrow">CHECKOUT</span>
+    <h1>Delivery & Payment</h1>
+
+    <div class="checkout-layout">
+        <form method="post" class="panel form-grid">
+            <label>Delivery Address
+                <textarea name="address" placeholder="House no, street, area, city, pincode" required></textarea>
+            </label>
+
+            <label>Amount to Pay
+                <input type="number" step="0.01" name="amount" value="{{ '%.0f'|format(total) }}" required>
+            </label>
+
+            <div class="secure-note">
+                🔒 Demo payment screen — no real money is charged.
+            </div>
+
+            <button class="btn btn-primary full">Pay Amount & Place Order</button>
+        </form>
+
+        <aside class="summary">
+            <h2>Final Amount</h2>
+            <div><span>Products</span><b>₹{{ '%.0f'|format(subtotal) }}</b></div>
+            <div><span>Delivery</span><b>₹{{ delivery }}</b></div>
+            <hr>
+            <div class="grand"><span>Pay</span><b>₹{{ '%.0f'|format(total) }}</b></div>
+        </aside>
+    </div>
+</section>
+{% endblock %}

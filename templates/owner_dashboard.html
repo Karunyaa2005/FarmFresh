@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Owner Dashboard{% endblock %}
+{% block content %}
+<section class="section">
+    <span class="eyebrow">OWNER CONTROL PANEL</span>
+    <h1>FarmFresh Owner 👑</h1>
+
+    <div class="stats-grid">
+        <div><b>{{ user_count }}</b><span>Total users</span></div>
+        <div><b>{{ product_count }}</b><span>Total products</span></div>
+        <div><b>{{ order_count }}</b><span>Total orders</span></div>
+    </div>
+
+    <div class="panel">
+        <h2>Users</h2>
+        {% for u in users %}
+        <div class="line-row">
+            <span>{{ u['name'] }} · {{ u['username'] }}</span>
+            <b>{{ u['role'] }}</b>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="panel">
+        <h2>Recent Orders</h2>
+        {% for o in orders %}
+        <div class="line-row">
+            <span>Order #{{ o['id'] }} · Customer {{ o['customer_id'] }}</span>
+            <b>{{ o['status'] }}</b>
+        </div>
+        {% else %}
+        <p class="muted">No orders yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}My Orders{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="section-heading">
+        <div><span class="eyebrow">ORDER HISTORY</span><h1>My Orders</h1></div>
+    </div>
+
+    {% if orders %}
+    <div class="orders-list">
+        {% for o in orders %}
+        <div class="order-card">
+            <div>
+                <span class="status">{{ o['status'] }}</span>
+                <h3>Order #{{ o['id'] }}</h3>
+                <p class="muted">{{ o['created_at'][:16] }}</p>
+                <p class="muted">{{ o['address'] }}</p>
+            </div>
+
+            <div class="order-right">
+                <strong>₹{{ "%.0f"|format(o['amount']) }}</strong>
+                <a href="{{ url_for('tracking', order_id=o['id']) }}">Track order →</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty">
+        <h2>No orders yet</h2>
+        <a class="btn btn-primary" href="{{ url_for('shop') }}">Shop Now</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}
