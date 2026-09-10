@@ -1,36 +1,38 @@
-FARMFRESH COMPLETE
-==================
+# FARMFRESH 🌱
 
-Features:
+A web-based Farmer and Vegetable Marketplace that connects farmers directly with customers.
+
+## Live Demo 🚀
+
+👉 https://farmfresh-6zq0.onrender.com
+
+## Features
+
 - Customer / Seller / Owner separate login
-- 1000 demo products
-- Real product photo URLs
+- 1000+ demo products
+- Real product photos
 - Search and category filters
 - Wishlist
 - Cart with quantity controls
-- Address + demo payment
+- Address and demo payment
 - Order tracking with map/truck UI
 - Delivered screen
-- Ratings + review form
+- Ratings and review form
 - Seller dashboard
 - Owner dashboard
 - SQLite database
 
-Python compatibility:
-The requirements are selected for the older Python 3.6 setup used during development.
+## Tech Stack
 
-Run:
-1. Open terminal in this folder.
-2. pip install -r requirements.txt
-3. python app.py
-4. Open http://127.0.0.1:5000/
+- HTML
+- CSS
+- JavaScript
+- Python
+- Flask
+- SQLite
 
-Owner demo:
-ID: owner@farmfresh.com
-Password: owner123
+## Run Locally
 
-Customer/Seller:
-Use Create Account on the login page.
-
-Note:
-Real product photos are loaded from Unsplash URLs, so internet access is needed for images.
+```bash
+pip install -r requirements.txt
+python app.py
